@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portafolio Web — Vicente Acuña</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <!-- (Opcional) favicon -->
+  <!-- <link rel="icon" href="favicon-vicente.png" type="image/png"> -->
+</head>
+
+<body>
+  <!-- Splash / Intro -->
+  <div class="splash" id="splash" aria-hidden="false">
+    <div class="splash__inner">
+      <div class="splash__tag">Portafolio web</div>
+      <h1 class="splash__title">Vicente Acuña</h1>
+      <p class="splash__hint">Cargando… (clic o presiona cualquier tecla para visualizar)</p>
+    </div>
+  </div>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar__left">
+      <a class="brand" href="#" aria-label="Inicio">Vicente Acuña</a>
+      <span class="sep">·</span>
+      <span class="subtitle">Portafolio Web</span>
+    </div>
+
+    <div class="topbar__right">
+      <a class="btn" href="PORTAFOLIO_2026.pdf" download>Descargar PDF</a>
+      <a class="btn btn--ghost" href="mailto:vicent.acuna@gmail.com?subject=Contacto%20portafolio">Contacto</a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="main">
+    <section class="viewer" aria-label="Visor de PDF">
+      <!-- Embed principal -->
+      <iframe
+        class="viewer__frame"
+        src="PORTAFOLIO_2026.pdf#view=FitH"
+        title="Portafolio PDF"
+        loading="lazy"
+      ></iframe>
+
+      <!-- Fallback simple -->
+      <div class="viewer__fallback">
+        <p>
+          Si no se ve el PDF aquí, ábrelo en una pestaña:
+          <a href="PORTAFOLIO_2026.pdf" target="_blank" rel="noreferrer">Ver PDF</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
