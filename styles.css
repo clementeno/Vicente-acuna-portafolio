@@ -11,9 +11,15 @@
 }
 
 *{ box-sizing: border-box; }
-html, body{ height: 100%; }
+html{
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
 body{
   margin: 0;
+  min-height: 100%;
+  height: 100%;
+  overflow-x: hidden;
   background: radial-gradient(1200px 600px at 15% 10%, rgba(255,255,255,0.08), transparent 55%),
               radial-gradient(900px 500px at 80% 20%, rgba(255,255,255,0.06), transparent 55%),
               var(--bg);
@@ -85,6 +91,9 @@ body{
 /* Main */
 .main{
   padding: 14px var(--pad) 24px;
+  padding-left: max(var(--pad), env(safe-area-inset-left));
+  padding-right: max(var(--pad), env(safe-area-inset-right));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
 }
 
 .viewer{
@@ -92,14 +101,21 @@ body{
   border-radius: var(--radius);
   overflow: hidden;
   background: rgba(255,255,255,0.04);
+  /* Contenedor flexible para que el iframe se adapte */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .viewer__frame{
   width: 100%;
+  min-width: 0;
   height: calc(100vh - 86px);
+  min-height: 50vh;
   border: 0;
   display: block;
   background: #111;
+  flex: 1 1 auto;
 }
 
 .viewer__fallback{
@@ -160,13 +176,82 @@ body{
   color: var(--muted);
 }
 
-/* Mobile tweaks */
+/* Tablet */
+@media (max-width: 768px){
+  .main{
+    padding: 10px 12px 16px;
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+  .viewer__frame{
+    height: calc(100vh - 78px);
+    min-height: 400px;
+  }
+}
+
+/* Mobile: layout y PDF adaptado */
 @media (max-width: 560px){
+  .topbar{
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px max(12px, env(safe-area-inset-left)) 10px max(12px, env(safe-area-inset-right));
+  }
   .topbar__left .sep,
   .topbar__left .subtitle{
     display: none;
   }
+  .topbar__right{
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .btn{
+    height: 36px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+  .main{
+    padding: 8px 10px 12px;
+    padding-left: max(10px, env(safe-area-inset-left));
+    padding-right: max(10px, env(safe-area-inset-right));
+  }
+  .viewer{
+    border-radius: 12px;
+    height: calc(100dvh - 70px);
+    min-height: 60vh;
+  }
   .viewer__frame{
-    height: calc(100vh - 70px);
+    width: 100%;
+    height: 0;
+    min-height: 280px;
+    flex: 1 1 auto;
+  }
+  /* En móvil mostramos el enlace alternativo para abrir el PDF (mejor experiencia en muchos navegadores) */
+  .viewer__fallback{
+    display: block;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 10px 12px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 13px;
+  }
+  .viewer__fallback p{
+    margin: 0;
+  }
+  .viewer__fallback a{
+    display: inline-block;
+    margin-top: 4px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.08);
+    font-weight: 600;
+  }
+}
+
+/* Pantallas muy pequeñas (p. ej. iPhone SE) */
+@media (max-width: 380px){
+  .viewer__frame{
+    min-height: 50vh;
   }
 }
